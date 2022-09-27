@@ -1,0 +1,27 @@
+[submodule "utils"]
+	path = utils
+	url = git@github.com:SA-PINCAST/utils.git
+[submodule "metrics"]
+	path = metrics
+	url = git@github.com:SA-PINCAST/metrics.git
+[submodule "costfunctions"]
+	path = costfunctions
+	url = git@github.com:SA-PINCAST/costfunctions.git
+[submodule "networks"]
+	path = networks
+	url = git@github.com:SA-PINCAST/networks.git
+[submodule "models"]
+	path = models
+	url = git@github.com:SA-PINCAST/models.git
+[submodule "datasets"]
+	path = datasets
+	url = git@github.com:SA-PINCAST/datasets.git
+[submodule "datamodules"]
+	path = datamodules
+	url = git@github.com:SA-PINCAST/datamodules.git
+[submodule "verification"]
+	path = verification
+	url = git@github.com:SA-PINCAST/verification.git
+[submodule "callbacks"]
+	path = callbacks
+	url = git@github.com:SA-PINCAST/callbacks.git

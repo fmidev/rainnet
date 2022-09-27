@@ -1,0 +1,9 @@
+# path to file containing dates (getting measurements) 
+# or timestamps (getting predictions) to parse
+datelist_path : "/home/harnist/Documents/verification/datelists/fmi_rainy_days_bbox.txt"
+
+# Path to the hdf5 file where measurments / predictions should be saved
+hdf5_path : "prediction_db.hdf5"
+
+# list indicating what should be computed
+builder : ["measurements", "advection", "sprog", "linda"]

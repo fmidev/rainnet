@@ -1,0 +1,3 @@
+from datamodules.FMICompositeDataModule import *
+from datamodules.RainNet.FMICompositeDataModule import FMICompositeDataModule as Rainnet_FMICompositeDataModule
+from datamodules.RainNet.Taasrad19DataModule import *

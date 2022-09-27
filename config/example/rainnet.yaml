@@ -1,0 +1,102 @@
+# configurations for RainNet model
+
+# Parameters for training model
+train_params:
+    # name of the saved model (without extension)
+    savefile: "example_name"
+
+    ### hardware related parameters ###
+    # cpu or cuda, depending on if using gpu
+    device: cpu
+    # number of multiprocessing workers for dataloaders
+    num_workers: 8
+    # numbers of gpus to use, if training on cpu set to 0
+    gpus: 0
+
+    ### batch sizes ###
+    train_batch_size: 1
+    valid_batch_size: 1
+    test_batch_size: 1
+    predict_batch_size : 1
+
+    ### training length limiting parameters ###
+    max_epochs: 30
+    # Max time used for training (days:hours:mins:secs)
+    max_time: "03:00:00:00"
+    # Run validation after every n epochs
+    val_check_interval: 0.5
+    # number of batches to validate on
+    val_batches : 0.005
+    # number of baches to train on (per epoch)
+    train_batches : 0.005
+
+    ### Leadtime related parameters ###
+    # How many leadtimes to run validation, testing ?
+    verif_leadtimes : 6
+    # How many leadtimes to run predictions on ? 
+    predict_leadtimes : 3
+    # How many leadtimes to train RainNet on ? 
+    train_leadtimes : 6
+
+
+    ### Optimization parameters ###
+    # early stopping callback
+    early_stopping : 
+        # metric to base ourselves on
+        monitor : "val_loss"
+        # successive validations where metric is allowed to worsen before stopping
+        patience : 5
+    # conditional learning rate modulation callback
+    lr_scheduler : 
+        # Which learning rate scheduler to use ?
+        name : "reduce_lr_on_plateau"
+        # Learning rate scheduler
+        kwargs : 
+            # minimize or maximize loss
+            mode : "min"
+            # factor learning rate is multiplied with when patience attained
+            factor : 0.1
+            # successive validations where loss is allowed to worsen before lowering learning rate
+            patience : 3
+    # base learning rate
+    lr : 1e-04
+    # loss function parameters
+    loss : 
+        # loss function to use, choose one implemented in rainnet
+        name : "ms_ssim"
+        # key-value arguments of the loss function, change based on the loss function,
+        # look for the arguments from the loss function definition, for no arguments pass an empty dict ({})
+        kwargs : 
+            data_range : 1.0
+            weights : [0.2, 0.2, 0.2, 0.2, 0.2]
+        # decay rate of loss with regards to leadtime, set to 0.0 for no decay
+        discount_rate : 0.0
+
+
+# parameters for prediction writing
+prediction_output : 
+    # name/path of the output HDF5 file 
+    db_name : "prediction_test.hdf5"
+    # group (directory) structure inside the HDF5 file, must contain {timestamp} and {method}
+    group_format : "{timestamp}/{method}"
+    # method (model) name, preferably unique to avoid potential collisions in verification 
+    method_name: "model_x"
+
+
+# RainNet model parameters, here set to default values
+model:
+    kernel_size : 3
+    mode : "regression"
+    conv_shape : [["1", [4,64]],
+                    ["2" , [64,128]],
+                    ["3" , [128,256]],
+                    ["4" , [256,512]],
+                    ["5" , [512,1024]],
+                    ["6" , [1536,512]],
+                    ["7" , [768,256]],
+                    ["8" , [384,128]],
+                    ["9" , [192,64]]]
+    activation : 
+        name : "ReLU"
+        kwargs : {}
+
