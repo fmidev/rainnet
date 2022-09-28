@@ -1,6 +1,8 @@
 # RainNet-PyTorch
 PyTorch implementation of RainNet (Ayzel et al. 2020)
 
+[![DOI](https://zenodo.org/badge/541990111.svg)](https://zenodo.org/badge/latestdoi/541990111)
+
 Added features include:
 
 - Training using multiple prediction leadtimes
